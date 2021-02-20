@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-20 13:54+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: validators.py
+msgid "Password is in a list of passwords commonly used on other websites."
+msgstr "این گذواژه در لیستی از گذرواژه‌های رایج استفاده شده در سایر وب‌سایت‌ها قرار دارد."
+
+#: validators.py
+msgid ""
+"Your password can’t be in the list of commonly used passwords on other "
+"websites."
+msgstr "گذواژه نباید در لیست گذرواژه‌های رایج استفاده شده در سایر وب‌سایت‌ها قرار داشته باشد."
