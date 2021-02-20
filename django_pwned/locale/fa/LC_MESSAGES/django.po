@@ -15,7 +15,7 @@ msgstr ""
 #: validators.py
 msgid "Password is in a list of passwords commonly used on other websites."
 msgstr ""
-"این گذواژه در لیستی از گذرواژه‌های رایج استفاده شده در سایر وب‌سایت‌ها قرار "
+"این گذرواژه در لیستی از گذرواژه‌های رایج استفاده شده در سایر وب‌سایت‌ها قرار "
 "دارد."
 
 #: validators.py
@@ -23,7 +23,7 @@ msgid ""
 "Your password can’t be in the list of commonly used passwords on other "
 "websites."
 msgstr ""
-"گذواژه نباید در لیست گذرواژه‌های رایج استفاده شده در سایر وب‌سایت‌ها قرار داشته "
+"گذرواژه نباید در لیست گذرواژه‌های رایج استفاده شده در سایر وب‌سایت‌ها قرار داشته "
 "باشد."
 
 #: validators.py
