@@ -22,6 +22,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ] 
 ```
 
+There is also `django_pwned.validators.GitHubLikePasswordValidator` which
+checks the password:
+
+- Includes a number and a lowercase letter, OR
+- Is at least 15 characters long with any combination of characters.
+
+
 ## Settings
 
 You can set the api request timeout by setting `PWNED_API_REQUEST_TIMEOUT` in
