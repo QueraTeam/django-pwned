@@ -16,7 +16,7 @@ from . import __version__
 log = logging.getLogger(__name__)
 
 API_ENDPOINT = "https://api.pwnedpasswords.com/range/{}"
-DEFAULT_API_REQUEST_TIMEOUT = 1.0  # 1 second
+DEFAULT_API_REQUEST_TIMEOUT = 1.5  # 1.5 second
 USER_AGENT = "django-pwned/{} (Python/{} | requests/{})".format(
     __version__, "{}.{}.{}".format(*sys.version_info[:3]), requests.__version__
 )

@@ -1,7 +1,7 @@
 Django Pwned
 ============
 
-A Django password validator using the Pwned Passwords API to check for
+A Django password validator using the [Pwned Passwords API] to check for
 compromised passwords.
 
 ## Usage
@@ -21,3 +21,14 @@ AUTH_PASSWORD_VALIDATORS = [
     # ...
 ] 
 ```
+
+## Settings
+
+You can set the api request timeout by setting `PWNED_API_REQUEST_TIMEOUT` in
+your project settings. (default is 1.5 seconds)
+
+```python
+PWNED_API_REQUEST_TIMEOUT = 2.0 
+```
+
+[Pwned Passwords API]: https://haveibeenpwned.com/API/v3#PwnedPasswords
