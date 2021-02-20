@@ -4,6 +4,10 @@ Django Pwned
 A Django password validator using the [Pwned Passwords API] to check for
 compromised passwords.
 
+## Installation
+
+For translations to work, add `django_pwned` to INSTALLED_APPS.
+
 ## Usage
 
 In `AUTH_PASSWORD_VALIDATORS`, remove `CommonPasswordValidator` and add
