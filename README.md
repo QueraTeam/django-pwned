@@ -27,12 +27,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ```
 
 There is also `django_pwned.validators.GitHubLikePasswordValidator` which
-checks the password:
+checks the password
+[is at least](https://docs.github.com/en/github/authenticating-to-github/creating-a-strong-password):
 
-- Includes a number and a lowercase letter, OR
-- Is at least 15 characters long with any combination of characters.
+- 8 characters long, if it includes a number and a lowercase letter, or
+- 15 characters long with any combination of characters
 
-You may want to disable Django's `NumericPasswordValidator` if you want to use
+You may want to disable Django's `NumericPasswordValidator`
+and `MinimumLengthValidator` if you want to use
 `GitHubLikePasswordValidator`.
 
 Example validators:
@@ -40,10 +42,6 @@ Example validators:
 ```python
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        "OPTIONS": {"min_length": 8},
-    },
     {"NAME": "django_pwned.validators.PwnedPasswordValidator"},
     {"NAME": "django_pwned.validators.GitHubLikePasswordValidator"},
 ]

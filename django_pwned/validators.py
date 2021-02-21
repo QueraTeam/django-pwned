@@ -4,7 +4,7 @@ compromised passwords.
 """
 import string
 
-from django.contrib.auth.password_validation import CommonPasswordValidator
+from django.contrib.auth.password_validation import MinimumLengthValidator, CommonPasswordValidator
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 from django.utils.translation import gettext_lazy as _
@@ -46,12 +46,19 @@ class GitHubLikePasswordValidator:
     Make sure password is at least 15 characters OR at least 8 characters including a number and a lowercase letter.
     """
 
+    def __init__(self, min_length=8, safe_length=15):
+        self.min_length_validator = MinimumLengthValidator(min_length=min_length)
+        self.safe_length = safe_length
+
     def validate(self, password, user=None):
-        # short passwords are caught by MinimumLengthValidator. don't check "at least 8 characters" part.
-        if len(password) >= 15:
-            return  # password is at least 15 characters
+        self.min_length_validator.validate(password, user)
+        # password is at least "min_length" characters
+        if len(password) >= self.safe_length:
+            # password is at least "safe_length" characters
+            return
         if len(set(password) & set(string.ascii_lowercase)) > 0 and len(set(password) & set(string.digits)) > 0:
-            return  # password includes a number and a lowercase letter
+            # password includes a number and a lowercase letter
+            return
         raise ValidationError(
             _(
                 "Make sure password includes a number and a lowercase letter "
