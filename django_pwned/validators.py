@@ -4,10 +4,12 @@ compromised passwords.
 """
 import string
 
-from django.contrib.auth.password_validation import MinimumLengthValidator, CommonPasswordValidator
+from django.contrib.auth.password_validation import CommonPasswordValidator, MinimumLengthValidator
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 from django.utils.translation import gettext_lazy as _
+
+from django_pwned.exceptions import InvalidArgumentsError
 
 from . import api
 
@@ -47,6 +49,10 @@ class GitHubLikePasswordValidator:
     """
 
     def __init__(self, min_length=8, safe_length=15):
+        if min_length < 6:
+            raise InvalidArgumentsError("min_length must be at least 6")
+        if safe_length <= min_length:
+            raise InvalidArgumentsError("safe_length must be greater than min_length")
         self.min_length_validator = MinimumLengthValidator(min_length=min_length)
         self.safe_length = safe_length
 
@@ -60,9 +66,6 @@ class GitHubLikePasswordValidator:
             # password includes a number and a lowercase letter
             return
         raise ValidationError(
-            _(
-                "Make sure password includes a number and a lowercase letter "
-                "OR is at least 15 characters."
-            ),
+            _("Make sure password includes a number and a lowercase letter OR is at least 15 characters."),
             code="password_github_like_validator",
         )

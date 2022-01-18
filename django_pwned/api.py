@@ -31,7 +31,7 @@ def _get_pwned(prefix):
         response = requests.get(
             url=API_ENDPOINT.format(prefix),
             headers={"User-Agent": USER_AGENT},
-            timeout=getattr(settings, "PWNED_API_REQUEST_TIMEOUT", DEFAULT_API_REQUEST_TIMEOUT),
+            timeout=getattr(settings, "DJANGO_PWNED_API_REQUEST_TIMEOUT", DEFAULT_API_REQUEST_TIMEOUT),
         )
         response.raise_for_status()
     except requests.RequestException as e:
