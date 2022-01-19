@@ -33,3 +33,7 @@ msgid ""
 msgstr ""
 "گذرواژه‌های کوتاه‌تر از %(safe_length)d حرف باید شامل حداقل یک عدد "
 "و یک حرف کوچک انگلیسی باشند."
+
+#: validators.py
+msgid "Make sure password has at least %(min_unique_characters)d unique characters."
+msgstr "گذرواژه باید حداقل %(min_unique_characters)d کاراکتر متمایز داشته باشد."

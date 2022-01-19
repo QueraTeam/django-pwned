@@ -73,3 +73,24 @@ class GitHubLikePasswordValidator:
             % {"safe_length": self.safe_length},
             code="password_github_like_validator",
         )
+
+
+class MinimumUniqueCharactersPasswordValidator:
+    """
+    Make sure password contains at least 4 unique characters
+    """
+
+    def __init__(self, min_unique_characters=4):
+        if min_unique_characters < 2:
+            raise InvalidArgumentsError("min_unique_characters must be at least 2")
+        self.min_unique_characters = min_unique_characters
+
+    def validate(self, password, user=None):
+        if len(set(password)) >= self.min_unique_characters:
+            # password has at least "min_unique_characters" unique characters
+            return
+        raise ValidationError(
+            _("Make sure password has at least %(min_unique_characters)d unique characters.")
+            % {"min_unique_characters": self.min_unique_characters},
+            code="password_min_unique_characters_validator",
+        )
