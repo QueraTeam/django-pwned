@@ -5,33 +5,33 @@
 [![](https://img.shields.io/github/license/QueraTeam/django-pwned.svg)](https://github.com/QueraTeam/django-pwned/blob/master/LICENSE.txt)
 [![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-A Django password validator using the [Pwned Passwords API] to check for
-compromised passwords.
+A collection of django password validators.
 
 ## Installation
 
 For translations to work, add `django_pwned` to `INSTALLED_APPS`.
 
-## Usage
-
-### TL;DR:
+## TL;DR:
 
 ```python
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django_pwned.validators.PwnedPasswordValidator"},
     {"NAME": "django_pwned.validators.GitHubLikePasswordValidator"},
+    {"NAME": "django_pwned.validators.MinimumUniqueCharactersPasswordValidator"},
+    {"NAME": "django_pwned.validators.PwnedPasswordValidator"},
 ]
 ```
 
-### PwnedPasswordValidator
+## Validators
 
-In `AUTH_PASSWORD_VALIDATORS`, remove `CommonPasswordValidator` and add
-`PwnedPasswordValidator`.
+### PwnedPasswordValidator(request_timeout=1.5)
 
-Internally, `PwnedPasswordValidator` checks password with Django's
-`CommonPasswordValidator` and if password was not in Django's list,
-uses Pwned API to check password.
+This validator uses the [Pwned Passwords API] to check for compromised passwords.
+
+Internally, this validator checks password with django's
+`CommonPasswordValidator` and if password was not in django's list,
+uses Pwned API to check password. So you can remove `CommonPasswordValidator`
+if you're using this validator.
 
 ```python
 AUTH_PASSWORD_VALIDATORS = [
@@ -42,29 +42,36 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 ```
 
-### GitHubLikePasswordValidator
+You can set the API request timeout with the `request_timeout` parameter (in seconds).
 
-There is also `django_pwned.validators.GitHubLikePasswordValidator` which
-checks the password
-[is at least](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-strong-password):
+If for any reason (connection issues, timeout, ...) the request to Pwned API fails,
+this validator skips checking password.
+
+### GitHubLikePasswordValidator(min_length=8, safe_length=15)
+
+Validates whether the password is at least:
 
 - 8 characters long, if it includes a number and a lowercase letter, or
 - 15 characters long with any combination of characters
+
+Based on Github's documentation about [creating a strong password].
 
 You may want to disable Django's `NumericPasswordValidator`
 and `MinimumLengthValidator` if you want to use
 `GitHubLikePasswordValidator`.
 
-## Settings
+The minimum number of characters can be customized with the `min_length`
+parameter. The length at which we remove the restriction about
+requiring both number and lowercase letter can be customized with the
+`safe_length` parameter.
 
-You can set the API request timeout by setting `DJANGO_PWNED_API_REQUEST_TIMEOUT` in
-your project settings. (default is 1.5 seconds)
+### MinimumUniqueCharactersPasswordValidator(min_unique_characters=4)
 
-```python
-DJANGO_PWNED_API_REQUEST_TIMEOUT = 2.0
-```
+Validates whether the password contains at least 4 unique characters.
+For example `aaaaaaaaaabbbbbbccc` is an invalid password, but `aAbB` is a valid password.
 
-[pwned passwords api]: https://haveibeenpwned.com/API/v3#PwnedPasswords
+The minimum number of unique characters can be customized with the
+`min_unique_characters` parameter.
 
 ## Development
 
@@ -76,3 +83,6 @@ DJANGO_PWNED_API_REQUEST_TIMEOUT = 2.0
 ## License
 
 MIT
+
+[pwned passwords api]: https://haveibeenpwned.com/API/v3#PwnedPasswords
+[creating a strong password]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-strong-password
