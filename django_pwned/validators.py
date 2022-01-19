@@ -22,12 +22,15 @@ class PwnedPasswordValidator:
     Password validator which checks Django's list of common passwords and the Pwned Passwords database.
     """
 
+    def __init__(self, request_timeout=1.5):
+        self.request_timeout = request_timeout
+
     def validate(self, password: str, user=None):
         # First, check Django's list of common passwords
         common_password_validator.validate(password, user)
 
         # If password is not in Django's list, check Pwned API
-        count = api.get_pwned_count(password)
+        count = api.get_pwned_count(password, self.request_timeout)
         if count is None:
             # API failure.
             pass
@@ -66,6 +69,7 @@ class GitHubLikePasswordValidator:
             # password includes a number and a lowercase letter
             return
         raise ValidationError(
-            _("Make sure password includes a number and a lowercase letter OR is at least 15 characters."),
+            _("Passwords shorter than %(safe_length)d characters must include a number and a lowercase letter.")
+            % {"safe_length": self.safe_length},
             code="password_github_like_validator",
         )

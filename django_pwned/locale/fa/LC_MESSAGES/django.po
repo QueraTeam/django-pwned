@@ -28,8 +28,8 @@ msgstr ""
 
 #: validators.py
 msgid ""
-"Make sure password includes a number and a lowercase letter OR is at least "
-"15 characters."
+"Passwords shorter than %(safe_length)d characters must include a number ""
+"and a lowercase letter."
 msgstr ""
-"گذرواژه باید شامل حداقل یک عدد و یک حرف کوچک انگلیسی باشد (یا حداقل ۱۵ "
-"کاراکتر باشد)."
+"گذرواژه‌های کوتاه‌تر از %(safe_length)d حرف باید شامل حداقل یک عدد "
+"و یک حرف کوچک انگلیسی باشند."
