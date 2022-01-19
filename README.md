@@ -1,9 +1,9 @@
 # Django Pwned
 
-![https://pypi.python.org/pypi/django-pwned/](https://img.shields.io/pypi/v/django-pwned.svg)
-![https://github.com/QueraTeam/django-pwned/actions](https://github.com/QueraTeam/django-pwned/workflows/Tests/badge.svg)
-![https://github.com/QueraTeam/django-pwned/blob/master/LICENSE.txt](https://img.shields.io/github/license/QueraTeam/django-pwned.svg)
-![https://github.com/psf/black](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![](https://img.shields.io/pypi/v/django-pwned.svg)](https://pypi.python.org/pypi/django-pwned/)
+[![](https://github.com/QueraTeam/django-pwned/workflows/Tests/badge.svg)](https://github.com/QueraTeam/django-pwned/actions)
+[![](https://img.shields.io/github/license/QueraTeam/django-pwned.svg)](https://github.com/QueraTeam/django-pwned/blob/master/LICENSE.txt)
+[![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A Django password validator using the [Pwned Passwords API] to check for
 compromised passwords.
