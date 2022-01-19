@@ -14,6 +14,10 @@ A collection of django password validators.
 
 ## Installation
 
+```
+pip install django-pwned
+```
+
 For translations to work, add `django_pwned` to `INSTALLED_APPS`.
 
 ## TL;DR:
