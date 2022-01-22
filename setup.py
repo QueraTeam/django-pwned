@@ -19,6 +19,8 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     author="Mohammad Javad Naderi",
+    url="https://github.com/QueraTeam/django-pwned",
+    download_url="https://pypi.org/project/django-pwned/",
     packages=find_packages(".", include=("django_pwned", "django_pwned.*")),
     include_package_data=True,
     install_requires=["Django>=3.2", "requests"],
