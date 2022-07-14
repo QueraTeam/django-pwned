@@ -38,7 +38,7 @@ def _get_pwned(prefix, request_timeout: int):
     results = {}
     for line in response.text.splitlines():
         line_suffix, times = line.split(":", 1)
-        results[line_suffix] = int(times)
+        results[line_suffix] = int(times.replace(",", ""))
 
     return results
 
