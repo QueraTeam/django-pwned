@@ -1,3 +1,5 @@
+import re
+
 import pytest
 import responses
 from django.core.exceptions import ValidationError
@@ -8,7 +10,7 @@ from django_pwned.validators import PwnedPasswordValidator
 
 @responses.activate
 def test_django_common_passwords():
-    responses.add(responses.GET)
+    responses.add(responses.GET, url=re.compile(r".*"))
     validator = PwnedPasswordValidator()
     with pytest.raises(ValidationError):
         validator.validate("123456")
