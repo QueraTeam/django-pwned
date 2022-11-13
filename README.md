@@ -1,9 +1,10 @@
 # Django Pwned
 
-[![](https://img.shields.io/pypi/v/django-pwned.svg)](https://pypi.python.org/pypi/django-pwned/)
-[![](https://github.com/QueraTeam/django-pwned/workflows/Tests/badge.svg)](https://github.com/QueraTeam/django-pwned/actions)
-[![](https://img.shields.io/github/license/QueraTeam/django-pwned.svg)](https://github.com/QueraTeam/django-pwned/blob/master/LICENSE.txt)
-[![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![pypi](https://img.shields.io/pypi/v/django-pwned.svg)](https://pypi.python.org/pypi/django-pwned/)
+[![tests ci](https://github.com/QueraTeam/django-pwned/workflows/Tests/badge.svg)](https://github.com/QueraTeam/django-pwned/actions)
+[![coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/quera-team/8ffd549b8222608cf369eb04b107930a/raw/pytest-coverage__main.json)](https://github.com/QueraTeam/django-pwned/actions)
+[![MIT](https://img.shields.io/github/license/QueraTeam/django-pwned.svg)](https://github.com/QueraTeam/django-pwned/blob/master/LICENSE.txt)
+[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A collection of django password validators.
 
