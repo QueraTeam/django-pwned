@@ -9,8 +9,8 @@ A collection of django password validators.
 
 ## Compatibility
 
-- Python: **3.6**, **3.7**, **3.8**, **3.9**, **3.10**
-- Django: **3.2**, **4.0**
+- Python: **3.7**, **3.8**, **3.9**, **3.10**, **3.11**
+- Django: **3.2**, **4.0**, **4.1**
 
 ## Installation
 
