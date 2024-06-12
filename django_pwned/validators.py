@@ -1,7 +1,3 @@
-"""
-A Django password validator using the Pwned Passwords API to check for
-compromised passwords.
-"""
 import logging
 import string
 
@@ -24,7 +20,7 @@ class PwnedPasswordValidator:
     Password validator which checks Django's list of common passwords and the Pwned Passwords database.
     """
 
-    def __init__(self, request_timeout=1.5):
+    def __init__(self, request_timeout: float = 1.5):
         self.request_timeout = request_timeout
 
     def validate(self, password: str, user=None):
@@ -56,7 +52,7 @@ class GitHubLikePasswordValidator:
     Make sure password is at least 15 characters OR at least 8 characters including a number and a lowercase letter.
     """
 
-    def __init__(self, min_length=8, safe_length=15):
+    def __init__(self, min_length: int = 8, safe_length: int = 15):
         if min_length < 6:
             raise InvalidArgumentsError("min_length must be at least 6")
         if safe_length <= min_length:
@@ -64,7 +60,7 @@ class GitHubLikePasswordValidator:
         self.min_length_validator = MinimumLengthValidator(min_length=min_length)
         self.safe_length = safe_length
 
-    def validate(self, password, user=None):
+    def validate(self, password: str, user=None):
         self.min_length_validator.validate(password, user)
         # password is at least "min_length" characters
         if len(password) >= self.safe_length:
@@ -82,15 +78,15 @@ class GitHubLikePasswordValidator:
 
 class MinimumUniqueCharactersPasswordValidator:
     """
-    Make sure password contains at least 4 unique characters
+    Make sure password contains enough unique characters.
     """
 
-    def __init__(self, min_unique_characters=4):
+    def __init__(self, min_unique_characters: int = 4):
         if min_unique_characters < 2:
             raise InvalidArgumentsError("min_unique_characters must be at least 2")
         self.min_unique_characters = min_unique_characters
 
-    def validate(self, password, user=None):
+    def validate(self, password: str, user=None):
         if len(set(password)) >= self.min_unique_characters:
             # password has at least "min_unique_characters" unique characters
             return

@@ -1,6 +1,5 @@
 """
-Direct access to the Pwned Passwords API for checking whether a
-password is compromised.
+Direct access to the Pwned Passwords API for checking whether a password is compromised.
 """
 
 import hashlib
@@ -20,10 +19,9 @@ class PwnedRequestError(Exception):
     pass
 
 
-def _get_pwned(prefix, request_timeout: int):
+def _get_pwned(prefix, request_timeout: float) -> dict[str, int]:
     """
-    Fetches a dict of all hash suffixes from Pwned Passwords for a
-    given SHA-1 prefix.
+    Fetches a dict of all hash suffixes from Pwned Passwords for a given SHA-1 prefix.
     """
     try:
         response = requests.get(
@@ -41,7 +39,7 @@ def _get_pwned(prefix, request_timeout: int):
     return results
 
 
-def get_pwned_count(password: str, request_timeout: int) -> int:
+def get_pwned_count(password: str, request_timeout: float) -> int:
     """
     Checks a password against the Pwned Passwords database.
 
