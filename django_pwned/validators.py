@@ -20,8 +20,9 @@ class PwnedPasswordValidator:
     Password validator which checks Django's list of common passwords and the Pwned Passwords database.
     """
 
-    def __init__(self, request_timeout: float = 1.5):
+    def __init__(self, request_timeout: float = 1.5, count_threshold: int = 1):
         self.request_timeout = request_timeout
+        self.count_threshold = count_threshold
 
     def validate(self, password: str, user=None):
         # First, check Django's list of common passwords
@@ -35,7 +36,7 @@ class PwnedPasswordValidator:
             log.warning("Skipped Pwned Passwords check due to error: %r", e)
             return
 
-        if count > 0:
+        if count >= self.count_threshold:
             raise ValidationError(
                 _("Password is in a list of passwords commonly used on other websites."),
                 code="password_pwned",

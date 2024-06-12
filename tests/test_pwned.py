@@ -42,7 +42,7 @@ def test_pwned_api__leaked_password():
                 "0BD86C0E684498894064E4AB86B9420CA0E:763",
                 "2019C3022C39C4E5FD5A92ECD102E87476D:3",
                 "3C56EAB73498B6A58EF5692C4E4937B4466:81",
-                "5565F95194F23408B0EA21A0D02C4EEA81D:2",
+                "5565F95194F23408B0EA21A0D02C4EEA81D:1",
                 "6E9AC9194DA65040917139BA238B3900354:2,103",
                 "BB48AB53E4E454BC487CA6400380C05D41A:5",
                 "D55A6ED26C1DE9350D40771822316CC4B29:3",
@@ -76,6 +76,36 @@ def test_pwned_api__strong_password():
     )
     PwnedPasswordValidator().validate(strong_password)
     assert len(responses.calls) == 1
+
+
+@responses.activate
+def test_pwned_api__count_threshold():
+    leaked_password = r"pass-word"
+    leaked_password_hash = "43BEF3EAB34187D71D7E1D9CC307C5E7C07665A8"
+    responses.add(
+        responses.GET,
+        API_ENDPOINT.format(leaked_password_hash[:5]),
+        body="\n".join(
+            [
+                "0BD86C0E684498894064E4AB86B9420CA0E:763",
+                "3EAB34187D71D7E1D9CC307C5E7C07665A8:3",
+                "3C56EAB73498B6A58EF5692C4E4937B4466:81",
+                "5565F95194F23408B0EA21A0D02C4EEA81D:1",
+                "6E9AC9194DA65040917139BA238B3900354:2,103",
+                "BB48AB53E4E454BC487CA6400380C05D41A:5",
+                "D55A6ED26C1DE9350D40771822316CC4B29:3",
+            ]
+        ),
+    )
+    with pytest.raises(ValidationError):
+        PwnedPasswordValidator().validate(leaked_password)
+    with pytest.raises(ValidationError):
+        PwnedPasswordValidator(count_threshold=2).validate(leaked_password)
+    with pytest.raises(ValidationError):
+        PwnedPasswordValidator(count_threshold=3).validate(leaked_password)
+    PwnedPasswordValidator(count_threshold=4).validate(leaked_password)
+    PwnedPasswordValidator(count_threshold=5).validate(leaked_password)
+    assert len(responses.calls) == 5
 
 
 @responses.activate

@@ -34,7 +34,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ## Validators
 
-### PwnedPasswordValidator(request_timeout=1.5)
+### PwnedPasswordValidator(request_timeout=1.5, count_threshold=1)
 
 This validator uses the [Pwned Passwords API] to check for compromised passwords.
 
@@ -54,8 +54,30 @@ AUTH_PASSWORD_VALIDATORS = [
 
 You can set the API request timeout with the `request_timeout` parameter (in seconds).
 
+You can set the `count_threshold` to reject a password if it appears more than
+a certain number of times in the Pwned Passwords data set.
+By default, this threshold is set to `1`.
+For instance, setting `count_threshold=2` means the password will be rejected
+if it appears in the data set at least twice.
+
+Example configuration:
+
+```python
+AUTH_PASSWORD_VALIDATORS = [
+    # ...
+    {
+      "NAME": "django_pwned.validators.PwnedPasswordValidator",
+      "OPTIONS": {
+        "request_timeout": 2,
+        "count_threshold": 5,
+      },
+    },
+    # ...
+]
+```
+
 If for any reason (connection issues, timeout, ...) the request to Pwned API fails,
-this validator skips checking password.
+this validator skips checking password and logs a message.
 
 ### GitHubLikePasswordValidator(min_length=8, safe_length=15)
 
@@ -64,7 +86,7 @@ Validates whether the password is at least:
 - 8 characters long, if it includes a number and a lowercase letter, or
 - 15 characters long with any combination of characters
 
-Based on Github's documentation about [creating a strong password].
+Based on GitHub's documentation about [creating a strong password].
 
 You may want to disable Django's `NumericPasswordValidator`
 and `MinimumLengthValidator` if you want to use
