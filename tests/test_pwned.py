@@ -89,5 +89,5 @@ def test_pwned_api__connection_error():
 def test_pwned_api__invalid_input():
     binary_password = b"\x23\x25"
     with pytest.raises(TypeError):
-        PwnedPasswordValidator().validate(binary_password)
+        PwnedPasswordValidator().validate(binary_password)  # noqa
     assert len(responses.calls) == 0

@@ -2,6 +2,7 @@
 A Django password validator using the Pwned Passwords API to check for
 compromised passwords.
 """
+import logging
 import string
 
 from django.contrib.auth.password_validation import CommonPasswordValidator, MinimumLengthValidator
@@ -13,6 +14,7 @@ from django_pwned.exceptions import InvalidArgumentsError
 
 from . import api
 
+log = logging.getLogger(__name__)
 common_password_validator = CommonPasswordValidator()
 
 
@@ -30,11 +32,14 @@ class PwnedPasswordValidator:
         common_password_validator.validate(password, user)
 
         # If password is not in Django's list, check Pwned API
-        count = api.get_pwned_count(password, self.request_timeout)
-        if count is None:
-            # API failure.
-            pass
-        if count:
+        try:
+            count = api.get_pwned_count(password, self.request_timeout)
+        except api.PwnedRequestError as e:
+            # Gracefully handle timeouts and HTTP error response codes.
+            log.warning("Skipped Pwned Passwords check due to error: %r", e)
+            return
+
+        if count > 0:
             raise ValidationError(
                 _("Password is in a list of passwords commonly used on other websites."),
                 code="password_pwned",
