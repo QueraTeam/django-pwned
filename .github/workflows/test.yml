@@ -46,10 +46,10 @@ jobs:
           junitxml-path: ./pytest.xml
       - if: ${{ strategy.job-index == 0 && github.ref == 'refs/heads/main' }}
         name: Create the coverage badge
-        uses: schneegans/dynamic-badges-action@v1.6.0
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.CODECOVERAGE_GIST }}
-          gistID: 8ffd549b8222608cf369eb04b107930a
+          gistID: 9813850da17ec3e10442c3f288d09065
           filename: pytest-coverage__${{ github.ref_name }}.json
           label: coverage
           message: ${{ steps.coverageComment.outputs.coverage }}
