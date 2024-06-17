@@ -54,7 +54,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 You can set the API request timeout with the `request_timeout` parameter (in seconds).
 
-You can set the `count_threshold` to reject a password if it appears more than
+You can set the `count_threshold` to reject a password if it appears at least
 a certain number of times in the Pwned Passwords data set.
 By default, this threshold is set to `1`.
 For instance, setting `count_threshold=2` means the password will be rejected
