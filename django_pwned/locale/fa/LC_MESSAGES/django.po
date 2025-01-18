@@ -37,3 +37,7 @@ msgstr ""
 #: validators.py
 msgid "Make sure password has at least %(min_unique_characters)d unique characters."
 msgstr "گذرواژه باید حداقل %(min_unique_characters)d کاراکتر متمایز داشته باشد."
+
+#: validators.py
+msgid "Your password should contain at least %(min_unique_characters)d unique characters."
+msgstr "گذرواژه شما باید حداقل %(min_unique_characters)d کاراکتر متمایز داشته باشد."
