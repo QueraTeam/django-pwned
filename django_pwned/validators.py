@@ -76,6 +76,11 @@ class GitHubLikePasswordValidator:
             code="password_github_like_validator",
         )
 
+    def get_help_text(self):
+        return _("Passwords shorter than %(safe_length)d characters must include a number and a lowercase letter.") % {
+            "safe_length": self.safe_length
+        }
+
 
 class MinimumUniqueCharactersPasswordValidator:
     """
@@ -96,3 +101,8 @@ class MinimumUniqueCharactersPasswordValidator:
             % {"min_unique_characters": self.min_unique_characters},
             code="password_min_unique_characters_validator",
         )
+
+    def get_help_text(self):
+        return _("Your password should contain at least %(min_unique_characters)d unique characters.") % {
+            "min_unique_characters": self.min_unique_characters
+        }
